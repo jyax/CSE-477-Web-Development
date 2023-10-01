@@ -27,6 +27,7 @@ git pull https://gitlab.msu.edu/cse477-fall-2023/course-materials.git
 ```
 
 
+
 ##### 2. Compose the Homework container locally 
 
 1. Navigate to the `Homework-1` directory of your <u>Personal Course Repository</u> (that's the one with the same name as your netID). 
