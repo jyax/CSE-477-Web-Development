@@ -1,9 +1,11 @@
+/* Reset some default styles for the body element */
 body {
     margin: 0;
     background-color: hsl(214, 72%, 13%);
     height: 100vh;
 }
 
+/* Styling for the header and banner (top section) */
 header, .banner {
     width: 100%;
     height: 10vh;
@@ -13,12 +15,14 @@ header, .banner {
     padding: 0;
 }
 
+/* Style for images inside the header and banner */
 header, .banner img {
     width: 100%;
     height: auto;
     display: block;
 }
 
+/* Styling for the navigation bar */
 nav {
     margin: 0;
     padding: 0;
@@ -30,14 +34,15 @@ nav {
     align-items: center;
 }
 
+/* Styling for the main heading within the navigation bar */
 nav h1 {
-
     color: white;
     font-family: Tahoma, serif;
     font-size: 200%;
     margin-left: 1vw;
 }
 
+/* Styling for the unordered list in the navigation bar */
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -46,11 +51,13 @@ nav ul {
     align-items: center;
 }
 
+/* Styling for list items in the navigation bar */
 nav ul li {
     display: inline;
     margin-right: 20px;
 }
 
+/* Styling for links in the navigation bar */
 nav ul li a {
     color: white;
     text-decoration: none;
@@ -59,20 +66,24 @@ nav ul li a {
     transition: opacity 0.3s;
 }
 
+/* Hover effect for links in the navigation bar */
 nav ul li a:hover {
     opacity: 0.5;
 }
 
+/* Styling for images within links in the navigation bar */
 nav ul li a img {
     max-height: 3vh;
     max-width: 3vh;
     transition: opacity 0.3s;
 }
 
+/* Hover effect for images within links in the navigation bar */
 nav ul li a img:hover {
     opacity: 0.7;
 }
 
+/* Styling for the menu icon (for mobile) */
 #menu-icon {
     display: none;
     opacity: 0;
@@ -80,13 +91,13 @@ nav ul li a img:hover {
     max-height: 3vh;
 }
 
+/* Styling for the menu icon image */
 #menu-icon-img {
     width: 30px;
     height: 30px;
 }
 
-
-/* Add this CSS for sliding in the mobile menu */
+/* CSS for sliding in the mobile menu when it's shown */
 #mobile-menu.show-menu {
     display: block;
     opacity: 1;
@@ -94,6 +105,7 @@ nav ul li a img:hover {
     transition: transform 0.3s ease-in-out;
 }
 
+/* Styling for the mobile menu (hidden by default) */
 #mobile-menu {
     display: none;
     opacity: 0;
@@ -108,8 +120,7 @@ nav ul li a img:hover {
     transition: transform 0.3s ease-in-out;
 }
 
-
-
+/* Styling for the items within the mobile menu */
 #mobile-menu ul {
     display: inherit;
     opacity: inherit;
@@ -117,12 +128,14 @@ nav ul li a img:hover {
     padding: 0;
 }
 
+/* Styling for list items within the mobile menu */
 #mobile-menu li {
     display: inherit;
     opacity: inherit;
     margin-bottom: 20px;
 }
 
+/* Styling for links within the mobile menu */
 #mobile-menu a {
     display: inherit;
     opacity: inherit;
@@ -132,11 +145,12 @@ nav ul li a img:hover {
     font-family: Tahoma, serif;
 }
 
-
+/* Styling for the main content area */
 main {
     color: white;
 }
 
+/* Styling for the footer section */
 footer {
     margin: 0;
     padding: 0;
@@ -149,11 +163,14 @@ footer {
     align-items: center;
 }
 
+/* Media query for screens with a maximum width of 650px (for mobile styling) */
 @media (max-width: 650px) {
+    /* Hide the desktop menu when the screen size is reduced */
     nav ul {
         display: none;
     }
 
+    /* Display the menu icon and adjust its styling */
     #menu-icon {
         display: block;
         opacity: 1;
@@ -163,11 +180,13 @@ footer {
         margin-right: 20px;
     }
 
+    /* Styling for the menu icon image */
     #menu-icon-img {
         width: 30px;
         height: 30px;
     }
 
+    /* Styling for the mobile menu (sliding in from the right) */
     #mobile-menu {
         display: none;
         position: fixed;
@@ -182,19 +201,23 @@ footer {
         transition: right 0.3s ease-in-out;
     }
 
+    /* Styling for the menu content within the mobile menu */
     #menu-content {
         padding: 20px;
     }
 
+    /* Styling for list items within the menu content */
     #menu-content ul {
         list-style-type: none;
         padding: 0;
     }
 
+    /* Styling for list items within the menu content */
     #menu-content li {
         margin-bottom: 20px;
     }
 
+    /* Styling for links within the menu content */
     #menu-content a {
         color: white;
         text-decoration: none;
@@ -202,10 +225,12 @@ footer {
         font-family: Tahoma, serif;
     }
 
+    /* Slide in the mobile menu when it's shown */
     #mobile-menu.show-menu {
         right: 0;
     }
 
+    /* Reset margins for header, nav, and footer when using mobile styling */
     header, nav, footer {
         margin-right: 0;
     }

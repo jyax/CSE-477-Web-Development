@@ -19,7 +19,7 @@ document.getElementById('keyboard').addEventListener('mouseout', () => {
     });
 });
 
-
+// Sound Map
 const sound = {97:"https://carolinegabriel.com/demo/js-keyboard/sounds/040.wav",
     119:"https://carolinegabriel.com/demo/js-keyboard/sounds/041.wav",
     115:"https://carolinegabriel.com/demo/js-keyboard/sounds/042.wav",
@@ -65,6 +65,27 @@ function keydownHandler(event) {
             // Set the audio element's source to the sound URL
             audio.src = sound[keyUnicode];
 
+
+            let current_key = document.getElementById(`${pressedKey}`);
+
+            function randInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1) + min); // Include max value
+            }
+
+            // Generate random HSL color
+            let hue = randInt(0, 255);
+            let saturation = 100; // You can adjust this value
+            let lightness = 50; // You can adjust this value
+            let alpha = 1; // Alpha (transparency)
+
+            // Construct the HSL color string
+            let hslColor = `hsl(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+
+            // Set the background color of the element
+            current_key.style.backgroundColor = hslColor;
+
             // Play the sound and handle the Promise
             audio.play()
                 .then(() => {
@@ -92,6 +113,16 @@ function keyupHandler(event) {
     if (isNote) {
         isNote.classList.remove('pressed');
         console.log(`Keyup: ${releasedKey}`);
+
+        let current_key = document.getElementById(`${releasedKey}`);
+
+    // Construct the HSL color string
+        if (current_key.classList.contains('white-key')) {
+            current_key.style.backgroundColor = "white";
+        } else {
+            current_key.style.backgroundColor = "black";
+        }
+
     }
 }
 
