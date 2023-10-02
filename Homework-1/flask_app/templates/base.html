@@ -6,6 +6,7 @@
         <link rel="icon" href="../static/main/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="../static/main/css/base.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <script src="../static/main/js/base.js" defer></script>
         {% block styles %}{% endblock %}
         <meta charset="UTF-8">
         <META NAME="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,10 +19,32 @@
             </div>
         </header>
         <nav>
+            <h1>CSE 477 - Homework 1</h1>
+
+            <!-- Menu Icon -->
+            <div id="menu-icon">
+                <img src="../static/main/images/menu-bar.png" alt="Menu" id="menu-icon-img">
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu">
+                <!-- Slide-out menu content -->
+                <div id="menu-content">
+                    <ul>
+                        <li><a href="/home.html">Home</a></li>
+                        <li><a href="/projects.html">Projects</a></li>
+                        <li><a href="../static/main/resume.pdf">Resume</a></li>
+                        <li><a href="https://www.linkedin.com/in/jakeyax/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
             <ul>
                 <li><a href="/home.html">Home</a></li>
                 <li><a href="/projects.html">Projects</a></li>
                 <li><a href="../static/main/resume.pdf">Resume</a></li>
+                <li><a href="https://www.linkedin.com/in/jakeyax/" target="_blank"><img src="../static/main/images/social-linkedin.jpg" alt="Link to my LinkedIn"/></a></li>
             </ul>
         </nav>
         <main>

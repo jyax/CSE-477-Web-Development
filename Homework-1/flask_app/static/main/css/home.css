@@ -7,7 +7,7 @@ main .double-column {
     flex-wrap: wrap;
     max-height: 50vh;
     max-width: 80vw;
-    margin: 0 auto;
+    margin: 10vh auto;
     padding: 20px;
 }
 
@@ -18,13 +18,22 @@ main .column {
     overflow: hidden;
 }
 
+#image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #description {
     flex: 1;
     padding: inherit;
     max-height: inherit;
-    overflow-y: scroll;
-    overflow-x: clip;
+    overflow-y: auto;
+    overflow-x: hidden;
     text-align: justify;
+    color: white;
+    font-size: 150%;
 }
 
 main .column #my-name {
@@ -32,4 +41,30 @@ main .column #my-name {
 }
 
 main #fun-fact {
+    font-size: 250%;
+    color: white;
+}
+
+@media (max-width: 650px) {
+    main .double-column {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: none;
+        max-width: 100%;
+        flex-direction: column;
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-right: 20px;
+        padding: 0;
+    }
+
+    main .column {
+        max-width: 100%;
+    }
+
+    #description {
+        overflow: visible;
+        white-space: normal;
+    }
+
 }

@@ -3,9 +3,37 @@
 {% block title %}Jake Yax Portfolio{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="../static/main/css/piano.css">
+<link rel="stylesheet" type="text/css" href="../static/piano/css/piano.css">
+<script src="../static/piano/js/piano.js" defer></script>
 {% endblock %}
 
 {% block content %}
+<h1 id="quote">Behold piano great and old, it's master slumbers in far off cold, If you wish to see anew, call out to it - we see you.</h1>
+<br>
+<div id="piano">
+    <div id="piano-name"><h1>The Great Old One</h1></div>
+    <div id="keyboard">
+        <div class="white-key" id="a"><p class="note">A</p></div>
+        <div class="black-key" id="w"><p class="note">W</p></div>
+        <div class="white-key" id="s"><p class="note">S</p></div>
+        <div class="black-key" id="e"><p class="note">E</p></div>
+        <div class="white-key" id="d"><p class="note">D</p></div>
+        <div class="white-key" id="f"><p class="note">F</p></div>
+        <div class="black-key" id="t"><p class="note">T</p></div>
+        <div class="white-key" id="g"><p class="note">G</p></div>
+        <div class="black-key" id="y"><p class="note">Y</p></div>
+        <div class="white-key" id="h"><p class="note">H</p></div>
+        <div class="black-key" id="u"><p class="note">U</p></div>
+        <div class="white-key" id="j"><p class="note">J</p></div>
+        <div class="white-key" id="k"><p class="note">K</p></div>
+        <div class="black-key" id="o"><p class="note">O</p></div>
+        <div class="white-key" id="l"><p class="note">L</p></div>
+        <div class="black-key" id="p"><p class="note">P</p></div>
+        <div class="white-key" id=";"><p class="note">;</p></div>
+    </div>
+</div>
+
+<img id="texture" src="../static/piano/images/texture.jpeg" alt="Texture Image">
+<audio id="creepy-audio" src="https://orangefreesounds.com/wp-content/uploads/2020/09/Creepy-piano-sound-effect.mp3"></audio>
 
 {% endblock %}

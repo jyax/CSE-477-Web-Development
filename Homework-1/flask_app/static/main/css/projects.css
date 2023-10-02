@@ -1,0 +1,30 @@
+main {
+    text-align: center;
+    height: 90%;
+}
+main .column-purpose {
+    color: white;
+}
+
+main .double-column {
+    display: flex;
+    flex-wrap: wrap;
+    border: 5px solid hsl(212, 52%, 22%);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px 10px 30px 0;
+}
+
+main .column {
+    margin-left: 1vh;
+    max-width: 40vw;
+    max-height: 40vh;
+    color: white;
+}
+#piano .column img {
+    max-width: 20vw;
+    max-height: 20vh;
+}
+#piano .column p {
+    font-size: 200%;
+}
