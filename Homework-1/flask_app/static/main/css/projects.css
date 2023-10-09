@@ -1,6 +1,12 @@
 main {
+    margin: 0;
+    padding: 0;
     text-align: center;
     height: 90%;
+    background-image: url("../../main/images/back.jpg");
+    backdrop-filter: blur(0px);
+    background-repeat:no-repeat;
+    background-size: auto;
 }
 main .column-purpose {
     color: white;
