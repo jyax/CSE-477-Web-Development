@@ -1,0 +1,4 @@
+"inst_id","type","name","department","address","city","state","zip"
+"1","Information Technology","Michigan State University","DSS Tech Services",NULL,"East Lansing","Michigan",NULL
+"2","Automotive Engineering","HMS Co. LLC.","Draft & Model",NULL,"Troy","Michigan",NULL
+"3","Personal","Personal Projects","Github",NULL,NULL,NULL,NULL

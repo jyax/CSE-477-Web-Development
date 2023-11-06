@@ -1,0 +1,30 @@
+{%  extends "shared/base.html" %}
+
+{% block title %}Feedback Received{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='main/css/processfeedback.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div id="feedback-container">
+        <h1 id="feedback-title">Feedback Received</h1>
+        <table id="feedback-table">
+            <tr>
+                <th>Comment ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Comment</th>
+            </tr>
+            {# loops for each feedback row #}
+            {% for feedback in feedback_list %}
+                <tr>
+                    <td>{{ feedback.comment_id }}</td>
+                    <td>{{ feedback.name }}</td>
+                    <td>{{ feedback.email }}</td>
+                    <td>{{ feedback.comment }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

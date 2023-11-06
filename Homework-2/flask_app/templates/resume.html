@@ -1,0 +1,65 @@
+{% extends "shared/base.html" %}
+
+{% block title %}My Resume{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='main/css/resume.css') }}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="resume">
+        {# Looping through each institution in the resume data #}
+        {% for inst_id, institution in resume_data.items() %}
+            {% if not loop.first %}
+                {# Adds separator for each institution to improve readability #}
+                <hr class="institution-divider">
+            {% endif %}
+            <div class="institution">
+                <div class="inst-name"><h1>{{ institution.name }}</h1></div>
+                <div class="inst-info">
+                    {% if institution.department and institution.department != 'NULL' %}{{ institution.department }}{% endif %}
+                    {% if institution.address and institution.address != 'NULL' %}, {{ institution.address }}{% endif %}
+                    {% if institution.city and institution.city != 'NULL' %}, {{ institution.city }}{% endif %}
+                    {% if institution.state and institution.state != 'NULL' %}, {{ institution.state }}{% endif %}
+                </div>
+            </div>
+            {# Loops for each position #}
+            {% for pos_id, position in institution.positions.items() %}
+                <ul class="positions">
+                    <li class="position">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div class="position-title"><h2>{{ position.title }}</h2></div>
+                            <div class="position-dates">
+                                {{ position.start_date }}
+                                {% if position.end_date and position.end_date != 'NULL' %} - {{ position.end_date }}{% endif %}
+                            </div>
+                        </div>
+                        <div>{{ position.responsibilities }}</div>
+                        {# loops for each experience #}
+                        {% for exp_id, experience in position.experiences.items() %}
+                            <ul class="experiences">
+                                <li class="experience">
+                                    <div>
+                                        {% if experience.hyperlink and experience.hyperlink != 'NULL' %}
+                                            <a href="{{ experience.hyperlink }}"><h3>{{ experience.name }}</h3></a>
+                                        {% else %}
+                                            <h3>{{ experience.name }}</h3>
+                                        {% endif %}
+                                    </div>
+                                    <div>{{ experience.description }}</div>
+                                    {# loops for each skill #}
+                                    {% for skill_id, skill in experience.skills.items() %}
+                                        <ul class="skills">
+                                            <li class="skill"><h4>{{ skill.name }}</h4></li>
+                                        </ul>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    </li>
+                </ul>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}

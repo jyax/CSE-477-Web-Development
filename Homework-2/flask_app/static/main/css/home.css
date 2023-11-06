@@ -1,0 +1,70 @@
+main {
+    text-align: center;
+}
+
+main .double-column {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 50vh;
+    max-width: 80vw;
+    margin: 10vh auto;
+    padding: 20px;
+}
+
+main .column {
+    flex: 1;
+    padding: inherit;
+    max-height: inherit;
+    overflow: hidden;
+}
+
+#image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#description {
+    flex: 1;
+    padding: inherit;
+    max-height: inherit;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: justify;
+    color: #ffffff;
+    font-size: 150%;
+}
+
+main .column #my-name {
+    font-size: 300%;
+}
+
+main #fun-fact {
+    font-size: 250%;
+    color: #ffffff;
+}
+
+@media (max-width: 650px) {
+    main .double-column {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: none;
+        max-width: 100%;
+        flex-direction: column;
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-right: 20px;
+        padding: 0;
+    }
+
+    main .column {
+        max-width: 100%;
+    }
+
+    #description {
+        overflow: visible;
+        white-space: normal;
+    }
+
+}

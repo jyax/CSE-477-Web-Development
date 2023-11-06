@@ -1,0 +1,31 @@
+{% extends "shared/base.html" %}
+
+{% block title %}Jake Yax Portfolio{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/main/css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="double-column">
+        <div class="column" id="image">
+            <img src="{{ url_for('static', filename='main/images/me.jpg') }}" alt="Picture of Jake Yax" loading="lazy">
+        </div>
+        <div class="column" id="description">
+            <p> <span id="my-name">Jake Yax ~</span> I'm a 22-year-old student studying computer science at Michigan State University.
+                I am currently a senior studying my final year and looking forward to pursuing career interests in machine learning applications
+                in virtual reality or game development. Some of my hobbies are playing guitar, video games, and exploring new projects and ideas
+                I have on the side. My favorite artist is Cigarettes After Sex. I want an otter when I have the financial freedom and space needed for one.
+                Since I can't think of enough to cause the scrollbar to happen, guess I got to have a monologue. I've been watching this show recently called
+                The 100. It's on Netflix and is based on a world where mutually assured destruction occurred and a nuclear winter covered the globe. There is
+                a space station that has been orbiting Earth waiting for the day to return. One day the elected leader sends 100 teenagers to the surface. These
+                teenagers committed crimes aboard the space station, and the rule is that crimes under the age of 18 lead to the teen being imprisoned until they
+                turn 18 where they will be put on trial to determine if they can become productive members aboard the station. If you happen to be 18 or older and
+                commit a crime it is a death sentence, and you are "floated" where you are sent out the airlock into space. The series explores the journey of the
+                100 teenagers as well as the fallout of the space station and how they will escape death from lack of oxygen in the space station.
+            </p>
+        </div>
+    </div>
+    <br>
+    <p id="fun-fact">Fun Fact: <b>{{fun_fact}}</b></p>
+{% endblock %}
