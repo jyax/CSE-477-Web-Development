@@ -1,6 +1,6 @@
 # Author: Prof. MM Ghassemi <ghassem3@msu.edu>
 from flask import current_app as app
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, session, url_for, copy_current_request_context
 from .utils.database.database import database
 from werkzeug.datastructures import ImmutableMultiDict
 from pprint import pprint
@@ -25,15 +25,18 @@ def home():
 
 @app.route('/login', methods=['POST'])
 def login():
-    email = request.form['email']
-    password = request.form['password']
+    return render_template('login.html')
+
+@app.route('/processlogin', methods=['POST'])
+def processlogin():
+    email = request.form.get['email']
+    password = request.form.get['password']
 
     auth = db.authenticate(email, password)
     
     if auth['success']:
         session['user_email']
         return redirect(url_for('home'))
-
 
 @app.route('/resume')
 def resume():
@@ -54,7 +57,7 @@ def piano():
 
 @app.route('/wordly')
 def wordly():
-    return render_template('worldy.html')
+    return render_template('wordly.html')
 
 
 @app.route('/submitfeedback', methods=['POST'])
