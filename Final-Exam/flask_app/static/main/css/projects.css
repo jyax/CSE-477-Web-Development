@@ -1,0 +1,44 @@
+main {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    height: 90%;
+    backdrop-filter: blur(5px);
+    background-repeat:no-repeat;
+    background-size: auto;
+}
+main .column-purpose {
+    margin-top: 5%;
+    margin-bottom: 2%;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 130%;
+}
+
+main .project-separator {
+    max-width: 60%;
+}
+
+main .double-column {
+    display: flex;
+    flex-wrap: wrap;
+    border: 5px solid #103565;
+    border-radius: 10px;
+    background-color: #274f7c;
+    padding: 10px;
+    margin: 2% 10% 10% 10%;
+}
+
+main .column {
+    margin-left: 1vh;
+    max-width: 40vw;
+    max-height: 40vh;
+    color: #ffffff;
+}
+#piano .column img {
+    max-width: 20vw;
+    max-height: 20vh;
+}
+#piano .column p {
+    font-size: 200%;
+}

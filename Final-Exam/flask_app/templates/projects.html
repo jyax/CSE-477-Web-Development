@@ -1,0 +1,23 @@
+{% extends "shared/base.html" %}
+
+{% block title %}Projects{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main/css/projects.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div class="column-purpose">
+        <p>This page is a representation of my portfolio of projects I have worked on. <br> Below you will find each project with a description and image of each project.</p>
+    </div>
+    <hr class="project-separator">
+    <div class="double-column" id="piano">
+        <div class="column" id="image">
+            <a href="/piano" target="_blank"><img src="{{ url_for('static', filename='main/images/piano.jpeg') }}" alt="Picture of a Piano"/></a>
+        </div>
+        <div class="column" id="description">
+            <p>Playable piano with a secret inside!</p>
+        </div>
+    </div>
+
+{% endblock %}

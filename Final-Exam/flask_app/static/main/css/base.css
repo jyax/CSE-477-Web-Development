@@ -1,0 +1,335 @@
+/* Reset some default styles for the body element */
+body {
+    margin: 0;
+    background-color: #091e39;
+    height: 100vh;
+}
+
+/* Styling for the header and banner (top section) */
+header, .banner {
+    width: 100%;
+    height: 10vh;
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for images inside the header and banner */
+header, .banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Styling for the navigation bar */
+nav {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 5vh;
+    background-color: #103565;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Styling for the main heading within the navigation bar */
+nav h1 {
+    color: #ffffff;
+    font-family: Tahoma, serif;
+    font-size: 200%;
+    margin-left: 1vw;
+}
+
+/* Styling for the unordered list in the navigation bar */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for list items in the navigation bar */
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+/* Styling for links in the navigation bar */
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 200%;
+    font-family: Tahoma, serif;
+    transition: opacity 0.3s;
+}
+
+/* Hover effect for links in the navigation bar */
+nav ul li a:hover {
+    opacity: 0.5;
+}
+
+/* Styling for images within links in the navigation bar */
+nav ul li a img {
+    max-height: 3vh;
+    max-width: 3vh;
+    transition: opacity 0.3s;
+}
+
+/* Hover effect for images within links in the navigation bar */
+nav ul li a img:hover {
+    opacity: 0.7;
+}
+
+/* Styling for the menu icon (for mobile) */
+#menu-icon {
+    display: none;
+    opacity: 0;
+    max-width: 3vw;
+    max-height: 3vh;
+}
+
+/* Styling for the menu icon image */
+#menu-icon-img {
+    width: 30px;
+    height: 30px;
+}
+
+/* CSS for sliding in the mobile menu when it's shown */
+#mobile-menu.show-menu {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Styling for the mobile menu (hidden by default) */
+#mobile-menu {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 5vh;
+    right: -100%; /* Start offscreen */
+    background-color: #103565;
+    z-index: 1;
+    width: 70%; /* Adjust width as needed */
+    max-width: 300px; /* Max width of the menu */
+    overflow-y: auto; /* Add scrolling if needed */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Styling for the items within the mobile menu */
+#mobile-menu ul {
+    display: inherit;
+    opacity: inherit;
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Styling for list items within the mobile menu */
+#mobile-menu li {
+    display: inherit;
+    opacity: inherit;
+    margin-bottom: 20px;
+}
+
+/* Styling for links within the mobile menu */
+#mobile-menu a {
+    display: inherit;
+    opacity: inherit;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 200%;
+    font-family: Tahoma, serif;
+}
+
+/* Styling for the main content area */
+main {
+    color: #ffffff;
+}
+
+/* Media query for screens with a maximum width of 650px (for mobile styling) */
+@media (max-width: 650px) {
+    /* Hide the desktop menu when the screen size is reduced */
+    nav ul {
+        display: none;
+    }
+
+    /* Display the menu icon and adjust its styling */
+    #menu-icon {
+        display: block;
+        opacity: 1;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin-right: 20px;
+    }
+
+    /* Styling for the menu icon image */
+    #menu-icon-img {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Styling for the mobile menu (sliding in from the right) */
+    #mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100%;
+        width: 70%;
+        max-width: 300px;
+        background-color: #103565;
+        z-index: 1;
+        overflow-y: auto;
+        transition: right 0.3s ease-in-out;
+    }
+
+    /* Styling for the menu content within the mobile menu */
+    #menu-content {
+        padding: 20px;
+    }
+
+    /* Styling for list items within the menu content */
+    #menu-content ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    /* Styling for list items within the menu content */
+    #menu-content li {
+        margin-bottom: 20px;
+    }
+
+    /* Styling for links within the menu content */
+    #menu-content a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 150%;
+        font-family: Tahoma, serif;
+    }
+
+    /* Slide in the mobile menu when it's shown */
+    #mobile-menu.show-menu {
+        right: 0;
+    }
+
+    /* Reset margins for header, nav, and footer when using mobile styling */
+    header, nav, footer {
+        margin-right: 0;
+    }
+}
+
+/* Styling for the footer section */
+footer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 2vh;
+    color: #ffffff;
+    background-color: #103565;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for the feedback button */
+#toggle-feedback-btn {
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    z-index: 1001;
+    background-color: #f5f5f5;
+    color: #333;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+/* Styling for the feedback form container */
+.feedback-form-container {
+    display: none; /* Hidden by default */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    background: #103565;
+    border: 2rem #000000;
+    border-radius: 5px;
+    z-index: 1000;
+    padding: 15px;
+}
+
+/* Style for the feedback form itself */
+.feedback-form-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2%;
+    padding: 2%;
+    margin: 5% 5% 5% 5%;
+
+}
+.feedback-form-container form label {
+    align-self: flex-start;
+    margin-left: 5%;
+    color: #ffffff;
+    font-weight: bold;
+}
+.feedback-form-container form input[type="text"],
+.feedback-form-container form input[type="email"],
+.feedback-form-container form textarea {
+    width: 100%;
+    padding: 5%;
+    margin: 2% 0;
+}
+.feedback-form-container form button {
+    background-color: #103565;
+    color: #ffffff;
+    padding: 5% 10%;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
+    width: 80%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.feedback-form-container form button:hover {
+    background-color: #091e39;
+}
+
+/* Show the feedback form container when it has the 'show' class */
+.feedback-form-container.show {
+    display: block; /* Or use flex, grid, etc., depending on your layout */
+}
+
+
+/* Initially hide the feedback form */
+.hidden {
+  display: none;
+}
+
+/* Style to display the feedback form, toggled via JavaScript */
+.show {
+  display: block; /* Or however you want to show your form */
+}
+
+.feedback-form-container label {
+    text-align: left;
+}
+
+#blur-backdrop {
+    display: none;
+    position: fixed;
+    margin: 0 0 0 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    height: 100%;
+    backdrop-filter: blur(1vh);
+    z-index: 999;
+}

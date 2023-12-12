@@ -1,0 +1,9 @@
+"exp_id","pos_id","name","description","hyperlink","start_date","end_date"
+"1","1","Database Support","Maintain the large tech asset database",NULL,NULL,NULL
+"2","2","Drafting & Modeling","Create drafts and models",NULL,NULL,NULL
+"3","3","Checker","Check drafts",NULL,NULL,NULL
+"4","4","Dynamic Windows Project","Created an extension that creates an easy-to-use experience of saving information on the fly, grouping it, and reopening it all with nothing more than a simple click","https://www.github.com/jyax/DWL","2023-09-27",NULL
+"5","4","Steam Game Recommendation Model","Recommends users games based off 2 approaches, a guest based quiz that provides top-rated games that they answer for, or a sign-in using Steam OpenID and their Web API to track user information such as game history and preferences","https://github.com/EzequielMussambe37/cse482Project","2023-09-15","2023-12-05"
+"6","4","Personal Website","Personal website from course CSE477","/home","2023-09-01","2023-12-07"
+"7","4","Discord API: Discord Bot","Side project for fun to just test the waters of Discord.js and see the underlying infrastructure of Discord's API","https://github.com/jyax/DiscordAPIBot","2020-06-01","2020-06-11"
+"8","4","Simple Sudoku Solver Agent","Solved Sudoku based on matrix like input into terminal",NULL,"2021-07-01","2021-07-03"

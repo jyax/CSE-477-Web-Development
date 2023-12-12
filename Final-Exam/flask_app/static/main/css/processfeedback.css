@@ -1,0 +1,41 @@
+/* outer div element positioned in the center of the page*/
+#feedback-container{
+     width: 60%;
+     height: auto;
+     background-color: #103565;
+     padding: 2%;
+     border-radius: 2%;
+     color: #000000;
+     font-weight: bold;
+     text-align: center;
+     margin: 2% auto auto;
+}
+#feedback-title {
+     color: #ffffff;
+     margin-bottom: 2%;
+}
+/* This is the actual table with the information of each feedback*/
+#feedback-table {
+     background-color: #e9e6e2;
+     margin:auto;
+     border-collapse: collapse;
+     width: 100%;
+}
+/* Setting table cell borders */
+th, td {
+     border: 0.1em solid #000000;
+     padding: 2%;
+     text-align: left;
+}
+/*Table heading*/
+th {
+     background-color: #1f4b99;
+     color: #ffffff;
+}
+/* Following are for readability in the table*/
+tr:nth-child(odd) {
+     background-color: #d1d1d1;
+}
+tr:nth-child(even) {
+     background-color: #e9e6e2;
+}

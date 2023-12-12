@@ -1,0 +1,5 @@
+flask
+gunicorn
+Flask-Failsafe
+mysql-connector-python
+scrypt
