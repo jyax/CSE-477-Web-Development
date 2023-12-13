@@ -4,7 +4,7 @@ version: "3.8"
 services:
   # A user-defined name for this container
   flask-app:
-    container_name: hw2-container_flask-app
+    container_name: finalexam-container_flask-app
     # Indicates that `Dockerfile-dev` should be used for local instantiations
     build:
         context: .

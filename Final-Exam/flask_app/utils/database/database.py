@@ -16,7 +16,7 @@ import scrypt
 
 class database:
 
-    def __init__(self, bc):
+    def __init__(self):
 
         # Grab information from the configuration file
         self.database = 'db'
