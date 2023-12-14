@@ -229,11 +229,13 @@ def processguess():
         return json.dumps({'correct': 0, 'result': result})
 
 
-@app.route('/proccessscore', methods=['POST'])
+@app.route('/processscore', methods=['POST'])
 def processscore():
     score_form = dict((key, request.form.getlist(key)[0]) for key in list(request.form.keys()))
     score = score_form['score']
+    print(score)
     username = getUsername()
+    print(username)
     created = db.setScore(score, username)
     if created['success']:
         return json.dumps({'success': 1})
@@ -247,6 +249,17 @@ def processleaderboard():
 
     json_version = jsonify({'leaderboard': leaderboard})
     return json_version
+
+
+@app.route('/checkscore', methods=['GET'])
+def checkscore():
+    username = getUsername()
+    score_exists = db.checkScore(username)
+    if score_exists:
+        score = score_exists['score']
+    else:
+        score = None
+    return json.dumps({'score': score})
 
 @app.route('/wordly')
 @login_required

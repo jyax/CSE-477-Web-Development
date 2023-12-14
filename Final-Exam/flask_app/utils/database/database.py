@@ -204,6 +204,19 @@ class database:
         print("Saved score to scores table!")
         return {'success': True, 'message': 'Score properly submitted'}
 
+    def getLeaderboard(self):
+
+        leaderboard = self.query("SELECT * FROM scores ORDER BY score ASC LIMIT 5")
+        if leaderboard:
+            return leaderboard
+        return None
+
+    def checkScore(self, username):
+        score_exists = self.query("SELECT * FROM scores WHERE username = %s", (username,))
+        if score_exists:
+            return score_exists[0]
+        return None
+
     def getResumeData(self):
         # Pulls data from the database to genereate data like this:
         institutions = self.query(f"SELECT * FROM institutions")

@@ -35,10 +35,10 @@ main .column {
     max-height: 40vh;
     color: #ffffff;
 }
-#piano .column img {
+.img-column img{
     max-width: 20vw;
     max-height: 20vh;
 }
-#piano .column p {
+.desc-column p{
     font-size: 200%;
 }

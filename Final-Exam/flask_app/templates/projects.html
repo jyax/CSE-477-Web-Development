@@ -12,11 +12,19 @@
     </div>
     <hr class="project-separator">
     <div class="double-column" id="piano">
-        <div class="column" id="image">
-            <a href="/piano" target="_blank"><img src="{{ url_for('static', filename='main/images/piano.jpeg') }}" alt="Picture of a Piano"/></a>
+        <div class="column img-column" id="piano-img">
+            <a href="/piano" target="_self"><img src="{{ url_for('static', filename='main/images/piano.jpeg') }}" alt="Picture of a Piano" loading="lazy"/></a>
         </div>
-        <div class="column" id="description">
+        <div class="column desc-column" id="piano-desc">
             <p>Playable piano with a secret inside!</p>
+        </div>
+    </div>
+    <div class="double-column" id="wordly">
+        <div class="column img-column" id="wordly-img">
+            <a href="/wordly" target="_self"><img src="{{ url_for('static', filename='main/images/wordly.jpg') }}" alt="Picture of blocks with letters on it" loading=lazy"/></a>
+        </div>
+        <div class="column desc-column" id="wordly-desc">
+            <p>Wordly! A game of guessing words.</p>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    checkForExistingScore();
 	getWordLength(createGameGrid);
 })
 
@@ -112,13 +113,14 @@ function submitGuess() {
 	jQuery.ajax( {
 		url:"/processguess",
 		type: 'POST',
-		data: { guess: guess },
+		data: { 'guess': guess },
 		success: function(response) {
 			response = JSON.parse(response);
 			if (response.correct) {
 				let result = new Array(wordLength).fill(2);
 				updateGridWithResult(result);
-				processEndGame(true);
+				console.log('win',response.correct);
+                processEndGame(true);
 			} else {
 				if(currentGuessNumber+1 >= wordLength) {
 					processEndGame(false);
@@ -161,7 +163,7 @@ function updateGridWithResult(result) {
 
 
 function processEndGame(win) {
-    let score = win ? currentGuessNumber : null;
+    let score = win ? currentGuessNumber+1 : null;
     let note = win ? `Nice! You beat it in ${currentGuessNumber} guesses.` : "Good try! You didn't get it today.";
 
     // POST request to submit the score
@@ -185,7 +187,8 @@ function getLeaderboard(note) {
         type: 'GET',
         success: function(leaderboardData) {
             // Assuming leaderboardData is an array of top 5 scores
-            displayLeaderboard(leaderboardData, note);
+            console.log("Leaderboard:", leaderboardData.leaderboard);
+            displayLeaderboard(leaderboardData.leaderboard, note);
         },
         error: function(err) {
             console.log('Error getting leaderboard:', err);
@@ -195,7 +198,6 @@ function getLeaderboard(note) {
 
 function displayLeaderboard(leaderboardData, note) {
     const gameContainer = document.querySelector('.game');
-
     gameContainer.innerHTML = '';
 
     const noteElement = document.createElement('div');
@@ -205,13 +207,33 @@ function displayLeaderboard(leaderboardData, note) {
 
     const leaderboardElement = document.createElement('div');
     leaderboardElement.classList.add('leaderboard');
+    const leaderboardList = document.createElement('ul');
+    leaderboardList.classList.add('leaderboard-list');
 
     leaderboardData.forEach((entry, index) => {
-        const entryElement = document.createElement('div');
+        const entryElement = document.createElement('li');
         entryElement.classList.add('leaderboard-entry');
-        entryElement.textContent = `${index + 1}. ${entry.name} - ${entry.score}`;
-        leaderboardElement.appendChild(entryElement);
+        entryElement.textContent = `${index + 1}. ${entry.username} - Guesses: ${entry.score}`;
+        leaderboardList.appendChild(entryElement);
     })
+    leaderboardElement.appendChild(leaderboardList);
 
     gameContainer.appendChild(leaderboardElement);
+}
+
+
+function checkForExistingScore() {
+    jQuery.ajax({
+        url: "/checkscore",
+        type: "GET",
+        success: function(scoreData) {
+            if (scoreData.score) {
+                currentGuessNumber = scoreData.score;
+                processEndGame(true);
+            }
+        },
+        error: function(err) {
+            console.log('Error getting leaderboard:', err);
+        }
+    })
 }
