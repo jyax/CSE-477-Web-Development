@@ -83,6 +83,7 @@ class database:
                 if table not in table_creation_order:
                     table_name = os.path.splitext(table)[0]
                     self.query(f"DROP TABLE IF EXISTS {table_name}")
+                    print(f"Dropped table: {table_name}")
 
         # Create tables in the predefined order
         for table in table_creation_order:
@@ -138,9 +139,10 @@ class database:
             self.query(query, parameter)
         print(f"Inserted into table {table}.")
 
-    def createUser(self, email, password, role='user'):
+    def createUser(self, username, email, password, role='user'):
         # Check if email already exists
         existing_user = self.query("SELECT * FROM users WHERE email = %s", (email,))
+
         if existing_user:
             return {'success': False, 'message': 'Email already exists'}
 
@@ -148,16 +150,12 @@ class database:
         encrypted_password = self.onewayEncrypt(password)
 
         # Add user to database
-        self.query("INSERT INTO users (email, password, role) VALUES (%s, %s, %s)", (email, encrypted_password, role))
+        self.query("INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, %s)", (username, email, encrypted_password, role))
         return {'success': True, 'message': 'User created successfully'}
 
     def authenticate(self, email, password):
-        user = self.query("SELECT * FROM users WHERE email = %s", (email,))
-        if user and scrypt.hash(password,
-                                self.encryption['oneway']['salt'],
-                                self.encryption['oneway']['n'],
-                                self.encryption['oneway']['r'],
-                                self.encryption['oneway']['p']) == user['password']:
+        user = self.query("SELECT * FROM users WHERE email = %s", (email,))[0]
+        if user and self.onewayEncrypt(password) == user['password']:
             return {'success': True, 'message': 'Authentication successful'}
         else:
             return {'success': False, 'message': 'Invalid email or password'}
@@ -180,6 +178,23 @@ class database:
             message = fernet.decrypt(message).decode()
 
         return message
+
+    def getUserByEmail(self, email):
+        user = self.query("SELECT * FROM users WHERE email = %s", (email,))
+        if user:
+            return user[0]
+        return None
+
+    def getDailyWord(self):
+        today_date = datetime.date.today()
+        exists = self.query("SELECT * FROM words WHERE date = %s", (today_date,))
+        if exists:
+            return exists[0]
+        return None
+
+    def setDailyWord(self, word):
+        today_date = datetime.date.today()
+        self.query("INSERT INTO users (date, word) VALUES (%s, %s)", (today_date, word))
 
     def getResumeData(self):
         # Pulls data from the database to genereate data like this:

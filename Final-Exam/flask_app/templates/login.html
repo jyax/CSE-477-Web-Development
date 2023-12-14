@@ -14,7 +14,8 @@
                 <h1>Sign in</h1>
                 <input id="email" title="Input for Email" type="email" name="email" placeholder="Email" required>
                 <input id="password" title="Input for Password" type="password" name="password" placeholder="********">
-                <button type="submit" name="signin" title="Button for login submit">Sign in</button>
+                <button name="signin" onclick="checkCredentials(event)" title="Button for login submit">Sign in</button>
+                <h3 id="failed-attempts"></h3>
             </form>
         </div>
         <div class="side-container">
@@ -28,8 +29,10 @@
 
     </div>
 </div>
+
 {% endblock %}
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='main/js/login.js') }}" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}

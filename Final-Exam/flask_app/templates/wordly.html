@@ -1,0 +1,59 @@
+{% extends "shared/base.html" %}
+
+{% block title %}Wordly{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='wordly/css/wordly.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="game">
+    <div class="game-grid">
+
+    </div>
+
+    <div id="keyboard">
+        <div class="kb-row">
+            <button class="kb-letter">q</button>
+            <button class="kb-letter">w</button>
+            <button class="kb-letter">e</button>
+            <button class="kb-letter">r</button>
+            <button class="kb-letter">t</button>
+            <button class="kb-letter">y</button>
+            <button class="kb-letter">u</button>
+            <button class="kb-letter">i</button>
+            <button class="kb-letter">o</button>
+            <button class="kb-letter">p</button>
+        </div>
+        <div class="kb-row">
+            <button class="kb-letter">a</button>
+            <button class="kb-letter">s</button>
+            <button class="kb-letter">d</button>
+            <button class="kb-letter">f</button>
+            <button class="kb-letter">g</button>
+            <button class="kb-letter">h</button>
+            <button class="kb-letter">j</button>
+            <button class="kb-letter">k</button>
+            <button class="kb-letter">l</button>
+        </div>
+        <div class="kb-row">
+            <button class="kb-letter kb-letter-enter">enter</button>
+            <button class="kb-letter">z</button>
+            <button class="kb-letter">x</button>
+            <button class="kb-letter">c</button>
+            <button class="kb-letter">v</button>
+            <button class="kb-letter">b</button>
+            <button class="kb-letter">n</button>
+            <button class="kb-letter">m</button>
+            <button class="kb-letter kb-letter-delete">
+            <i class="fa-solid fa-delete-left"></i>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='wordly/js/wordly.js') }}"  defer></script>
+<script src="https://kit.fontawesome.com/2ff610ef8a.js" crossorigin="anonymous"></script>
+{% endblock %}

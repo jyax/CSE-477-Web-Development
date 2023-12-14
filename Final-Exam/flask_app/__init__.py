@@ -24,8 +24,8 @@ def create_app(debug=False):
 	db = database()
 	db.createTables(purge=True)
 
-	db.createUser(email='owner@email.com', password='password', role='owner')
-	db.createUser(email='guest@email.com', password='password', role='guest')
+	db.createUser(username='owner', email='owner@email.com', password='password', role='owner')
+	db.createUser(username='guest', email='guest@email.com', password='password', role='user')
 
 	with app.app_context():
 		from . import routes

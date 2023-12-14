@@ -2,20 +2,27 @@ document.getElementById('sign-up').addEventListener('click', () =>{
     window.location.href = '/signup';
 });
 
-document.getElementById('sign-in-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+let count     = 0
+function checkCredentials(event) {
+    event.preventDefault()
+    // package data in a JSON object
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var data_d = { 'email': email, 'password': password };
 
-    fetch('/processlogin', {
-        method: 'POST',
-        body: new FormData(document.getElementById('sign-in-form'))
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            window.location.href = '/home'; // Redirect to the home page
-        } else {
-            alert('Invalid credentials'); // Show an error message
+    // SEND DATA TO SERVER VIA jQuery.ajax({})
+    jQuery.ajax({
+        url: "/processlogin",
+        data: data_d,
+        type: "POST",
+        success:function(returned_data){
+              returned_data = JSON.parse(returned_data);
+              if (returned_data.success) {
+                  window.location.href = "/";
+              } else {
+                  count++;
+                  document.getElementById('failed-attempts').textContent = 'Failed attempts: ' + count;
+              }
         }
-    })
-        .catch(err => console.error('Error:', err));
-});
+    });
+}

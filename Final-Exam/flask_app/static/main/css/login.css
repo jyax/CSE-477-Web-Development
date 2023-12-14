@@ -117,3 +117,8 @@ main {
 .side-right {
     right: 0;
 }
+
+#failed-attempts {
+    font-size: 2vh;
+    color: #AF2E0F;
+}

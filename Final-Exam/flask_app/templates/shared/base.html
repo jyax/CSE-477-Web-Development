@@ -34,7 +34,11 @@
 
     <!-- Navigation menu -->
     <nav>
+        {% if user_username != 'Unknown' %}
+        <h1>Welcome back, {{ user_username | capitalize }}</h1>
+        {% else %}
         <h1>CSE 477 - Final Exam</h1>
+        {% endif %}
 
         <!-- Menu Icon (for mobile) -->
         <div id="menu-icon">
@@ -51,6 +55,11 @@
                     <li><a href="/projects">Projects</a></li>
                     <li><a href="/resume">Resume</a></li>
                     <li><a href="https://www.linkedin.com/in/jakeyax/" target="_blank">LinkedIn</a></li>
+                    {% if user_email != 'Unknown' %}
+                    <li><a href="/logout">Logout</a></li>
+                    {% else %}
+                    <li><a href="/login">Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -62,6 +71,11 @@
             <li><a href="/projects">Projects</a></li>
             <li><a href="/resume">Resume</a></li>
             <li><a href="https://www.linkedin.com/in/jakeyax/" target="_blank"><img src="{{ url_for('static', filename='main/images/social-linkedin.jpg') }}" alt="Link to my LinkedIn"/></a></li>
+            {% if user_username != 'Unknown' %}
+            <li><a href="/logout">Logout</a></li>
+            {% else %}
+            <li><a href="/login">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 
