@@ -4,6 +4,9 @@
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='wordly/css/wordly.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -14,8 +17,8 @@
 
     <div id="keyboard">
         <div class="kb-row">
-            <button class="kb-letter">q</button>
-            <button class="kb-letter">w</button>
+            <button class="kb-letter" id="q">q</button>
+            <button class="kb-letter" id="w">w</button>
             <button class="kb-letter">e</button>
             <button class="kb-letter">r</button>
             <button class="kb-letter">t</button>
@@ -37,7 +40,7 @@
             <button class="kb-letter">l</button>
         </div>
         <div class="kb-row">
-            <button class="kb-letter kb-letter-enter">enter</button>
+            <button class="kb-enter">enter</button>
             <button class="kb-letter">z</button>
             <button class="kb-letter">x</button>
             <button class="kb-letter">c</button>
@@ -45,7 +48,7 @@
             <button class="kb-letter">b</button>
             <button class="kb-letter">n</button>
             <button class="kb-letter">m</button>
-            <button class="kb-letter kb-letter-delete">
+            <button class="kb-delete">
             <i class="fa-solid fa-delete-left"></i>
             </button>
         </div>
@@ -56,4 +59,5 @@
 {% block scripts %}
 <script src="{{ url_for('static', filename='wordly/js/wordly.js') }}"  defer></script>
 <script src="https://kit.fontawesome.com/2ff610ef8a.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}

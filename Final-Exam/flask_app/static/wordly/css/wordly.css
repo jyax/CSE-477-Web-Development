@@ -1,3 +1,5 @@
+
+
 main {
     width: 100%;
     height: 80%;
@@ -12,18 +14,54 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: auto;
+    height: auto;
+    margin-top: 25vh;
+    max-width: 100%;
+    max-height: 100%;
+    font-family: 'Oswald', sans-serif;
 }
 
 .game-grid {
-    width: 100%;
+    margin-top: 5vh;
+    margin-bottom: 2vh;
     display: grid;
-    gap: 1vw;
+    gap: 1vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-row {
+    /*display: flex;
+    column-gap: 4px;*/
+    display: grid;
+    grid-template-columns: repeat(var(--wordLength), 1fr);
+    gap: 0.5vw;
+
 }
 
 .cell {
+    aspect-ratio: 1;
+    width: 0.5fr;
+    height: 0.5fr;
     border: 0.5vw solid #ccc;
-    min-width: 4vw;
-    min-height: 4vh;
+    min-width: 3vw;
+    min-height: 3vh;
+    max-width: 4vw;
+    max-height: 4vh;
+    background-color: #fff;
+    border: 0.5vh solid #fff;
+    border-radius: 1vh;
+    color: #000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: color 0.05s ease-in-out,
+                background-color 0.3s ease-in-out,
+                border-color 0.3s ease-in-out;
 }
 
 #keyboard {
@@ -41,9 +79,9 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(4vw, auto));
     justify-content: center;
 }
-.kb-letter {
+.kb-letter, .kb-enter, .kb-delete{
     height: 4vh;
-    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     text-color: #000;
     cursor: pointer;
@@ -72,6 +110,6 @@ main {
 }
 
 .letter-correct {
-    background-color: #15a760;;
-    border-color: #15a760;;
+    background-color: #15a760;
+    border-color: #15a760;
 }

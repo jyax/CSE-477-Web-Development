@@ -194,7 +194,15 @@ class database:
 
     def setDailyWord(self, word):
         today_date = datetime.date.today()
-        self.query("INSERT INTO users (date, word) VALUES (%s, %s)", (today_date, word))
+        print("Setting daily word into database...")
+        self.query("INSERT INTO words (date, word) VALUES (%s, %s)", (today_date, word))
+        print("Saved daily word!")
+
+    def setScore(self, score, username):
+        print("Inserting new score into database")
+        self.query("INSERT INTO scores (score, username) VALUES (%s, %s)", (score, username))
+        print("Saved score to scores table!")
+        return {'success': True, 'message': 'Score properly submitted'}
 
     def getResumeData(self):
         # Pulls data from the database to genereate data like this:

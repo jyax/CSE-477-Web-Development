@@ -121,6 +121,7 @@ def projects():
 # Projects #
 ############
 @app.route('/piano')
+@login_required
 def piano():
     user_username = getUsername()
     return render_template('piano.html', user_username=user_username)
@@ -128,21 +129,27 @@ def piano():
 
 def daily_word():
     current_word = db.getDailyWord()
+    print(current_word)
     if current_word is not None:
         return current_word['word']
     else:
+        print("Fetching new daily word...")
         # Fetch a new word from the API
-        response = requests.get("https://random-word-api.herokuapp.com/word")
-        if response.status_code == 200:
-            word_list = response.json()
-            if word_list:
-                current_word = word_list[0]
-                # Store the new word in the database with today's date
-                db.setDailyWord(word=current_word)
-                return current_word
-        else:
-            print("Error fetching the word from the API")
-            return None
+        current_word="disgusting"
+        while len(current_word) > 8:
+            response = requests.get("https://random-word-api.herokuapp.com/word")
+            if response.status_code == 200:
+                word_list = response.json()
+                if word_list:
+                    current_word = word_list[0]
+                    # Store the new word in the database with today's date
+                    if len(current_word) <= 8:
+                        break
+            else:
+                print("Error fetching the word from the API")
+                return None
+        db.setDailyWord(word=current_word)
+        return current_word
 
 
 def compare_guess(guess, current_daily_word):
@@ -188,13 +195,14 @@ def compare_guess(guess, current_daily_word):
         guess_locations = set(guess_letters[letter]['location'])
         word_locations = set(word_letters[letter]['location'])
         common_locations = guess_locations.intersection(word_locations)
-
+        correctness_set = False
         if common_locations:
             correctness_type += 1
             list_of_correct_locations = list(common_locations)
             for location in list_of_correct_locations:
                 correctness[location] = correctness_type
-        correctness[loc] = correctness_type if correctness[loc] == 0 else correctness[loc]
+                correctness_set = True
+        correctness[loc] = correctness_type if not correctness_set else correctness[loc]
         loc += 1
         if word_letters[letter]['count'] == 0:
             word_letters.pop(letter)
@@ -202,12 +210,43 @@ def compare_guess(guess, current_daily_word):
     return correctness
 
 
-@app.route('/processguess', methods=['POST'])
-def getdailyword():
-    guess = request.form['guess']
-    result = compare_guess(guess, daily_word())
-    return jsonify(result)
+@app.route('/getlength', methods=['GET'])
+def getlength():
+    word_length = len(daily_word())
+    print(f"Daily word is {daily_word()} with a length of {word_length}.")
+    json_version = jsonify({'length': word_length})
+    return json_version
 
+
+@app.route('/processguess', methods=['POST'])
+def processguess():
+    guess_request = dict((key, request.form.getlist(key)[0]) for key in list(request.form.keys()))
+    guess = guess_request['guess']
+    result = compare_guess(guess, daily_word())
+    if result == [2] * len(guess):
+        return json.dumps({'correct': 1})
+    else:
+        return json.dumps({'correct': 0, 'result': result})
+
+
+@app.route('/proccessscore', methods=['POST'])
+def processscore():
+    score_form = dict((key, request.form.getlist(key)[0]) for key in list(request.form.keys()))
+    score = score_form['score']
+    username = getUsername()
+    created = db.setScore(score, username)
+    if created['success']:
+        return json.dumps({'success': 1})
+    else:
+        return json.dumps({'success': 0, 'message': created['message']})
+
+
+@app.route('/processleaderboard', methods=['GET'])
+def processleaderboard():
+    leaderboard = db.getLeaderboard()
+
+    json_version = jsonify({'leaderboard': leaderboard})
+    return json_version
 
 @app.route('/wordly')
 @login_required
