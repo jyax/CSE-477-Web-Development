@@ -53,8 +53,11 @@ def signup():
 def processsignup():
     form_fields = dict((key, request.form.getlist(key)[0]) for key in list(request.form.keys()))
     username = form_fields['username']
+    print(username)
     email = form_fields['email']
+    print(email)
     password = form_fields['password']
+    print(password)
     created = db.createUser(username, email, password)
 
     if created['success']:
@@ -68,7 +71,8 @@ def processlogin():
     form_fields = dict((key, request.form.getlist(key)[0]) for key in list(request.form.keys()))
     email = form_fields['email']
     password = form_fields['password']
-
+    print(email)
+    print(password)
     auth = db.authenticate(email, password)
     print(auth)
     if auth['success']:
@@ -135,7 +139,7 @@ def daily_word():
     else:
         print("Fetching new daily word...")
         # Fetch a new word from the API
-        current_word="disgusting"
+        current_word = "?????????"
         while len(current_word) > 8:
             response = requests.get("https://random-word-api.herokuapp.com/word")
             if response.status_code == 200:
