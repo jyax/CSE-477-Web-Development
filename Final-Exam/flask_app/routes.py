@@ -120,6 +120,7 @@ def processlogin():
 @app.route('/logout')
 def logout():
     session.pop('email', default=None)
+    session.pop('first_login', default=None)
     return redirect('/')
 
 
