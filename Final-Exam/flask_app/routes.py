@@ -9,7 +9,6 @@ from pprint import pprint
 import json
 import random
 import functools
-import requests
 import http.client
 from urllib.parse import urlparse
 import enchant
