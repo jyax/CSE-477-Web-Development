@@ -10,6 +10,23 @@
 {% endblock %}
 
 {% block content %}
+
+{% if show_instructions %}
+<div class="instructions-modal" data-show-instructions="{{ show_instructions }}">
+    <h2>How to play</h2>
+    <ul>
+        <li>You have as many guesses as total letters in the word</li>
+        <li>Each guess must be a valid word.</li>
+        <li>The tiles will change in color based on how correct you were</li>
+        <li>A green tile means it is the correct letter in the correct spot</li>
+        <li>A yellow tile means it is the correct letter, but wrong spot</li>
+        <li>A grey means it is neither the correct letter nor correct spot</li>
+    </ul>
+    <button onclick="closeInstructions()">Close</button>
+</div>
+{% endif %}
+
+
 <div class="game">
     <div class="game-grid">
 

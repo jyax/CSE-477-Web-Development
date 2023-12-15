@@ -79,7 +79,7 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(4vw, auto));
     justify-content: center;
 }
-.kb-letter, .kb-enter, .kb-delete{
+.kb-letter, .kb-enter, .kb-delete, .instructions-button{
     height: 4vh;
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
@@ -134,6 +134,45 @@ main {
     margin: 5px 0;
     font-size: 1em;
 }
+
+.instructions-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    background: #103565;
+    border: 2rem #000000;
+    border-radius: 5px;
+    z-index: 1000;
+    padding: 15px;
+}
+
+.instructions-modal li {
+    align-self: flex-start;
+    margin-left: 5%;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.instructions-modal.instructions-button {
+    display: block; /* Block level so it takes its own line */
+    width: 100px; /* Width of the button */
+    padding: 5px 10px; /* Padding for the button */
+    margin: 20px auto 0; /* Center the button with margin */
+    background-color: #4CAF50; /* Background color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Cursor to indicate it's clickable */
+    text-align: center; /* Center text inside the button */
+}
+
+.instructions-modal .instructions-button:hover {
+    background-color: #45a049; /* Slightly darker color on hover */
+}
+
 
 .grid-row.shake {
     animation: shake 100ms linear infinite;

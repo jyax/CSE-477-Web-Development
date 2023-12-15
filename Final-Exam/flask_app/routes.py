@@ -1,4 +1,6 @@
 # Author: Prof. MM Ghassemi <ghassem3@msu.edu>
+from datetime import datetime
+
 from flask import current_app as app, jsonify
 from flask import render_template, redirect, request, session, url_for, copy_current_request_context
 from .utils.database.database import database
@@ -102,6 +104,7 @@ def processlogin():
     if auth['success']:
         encrypted_email = db.reversibleEncrypt('encrypt', email)
         session['email'] = encrypted_email
+        stored_date = session.get('last_login_date')
         return json.dumps({'success': 1})
 
     else:
@@ -284,7 +287,14 @@ def checkscore():
 @login_required
 def wordly():
     user_username = getUsername()
-    return render_template('wordly.html', user_username=user_username)
+    stored_date = session.get('last_login_date')
+    today_date = datetime.now().date().isoformat()
+    if stored_date != today_date:
+        show_instructions = True
+        session['last_login_date'] = today_date
+    else:
+        show_instructions = False
+    return render_template('wordly.html', user_username=user_username, show_instructions=show_instructions)
 
 
 ####################

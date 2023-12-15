@@ -1,5 +1,12 @@
+showInstructions = document.body.getAttribute('data-show-instructions') === 'True';
 document.addEventListener('DOMContentLoaded', () => {
+    let showInstructions = document.querySelector('.instructions-modal') ?
+                                    document.querySelector('.instructions-modal').getAttribute('data-show-instructions') === 'True' : false;
     checkForExistingScore();
+    console.log(showInstructions);
+    if (showInstructions) {
+        document.querySelector('.instructions-modal').style.display = 'block';
+    }
 })
 
 let wordLength = null
@@ -270,6 +277,10 @@ function checkForExistingScore() {
                 currentGuessNumber = scoreData.score-1;
                 processEndGame(true, true);
             } else {
+                if (showInstructions) {
+                    document.getElementById('instructions-modal').style.display = 'block';
+                    document.getElementById('instructions-backdrop').style.display = 'block';
+                }
                 getWordLength(createGameGrid);
             }
         },
@@ -277,4 +288,8 @@ function checkForExistingScore() {
             console.log('Error getting leaderboard:', err);
         }
     })
+}
+
+function closeInstructions() {
+    document.querySelector('.instructions-modal').style.display = 'none';
 }
