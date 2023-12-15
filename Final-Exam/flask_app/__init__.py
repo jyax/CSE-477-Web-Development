@@ -7,8 +7,6 @@ import os
 from flask import Flask
 from flask_failsafe import failsafe
 from .utils.database.database import database
-from flask import session
-import secrets
 
 #--------------------------------------------------
 # Create a Failsafe Web Application

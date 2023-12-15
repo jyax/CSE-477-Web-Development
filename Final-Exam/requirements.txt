@@ -21,6 +21,6 @@ protobuf
 gevent
 packaging
 greenlet
-requests
 pyenchant
 apscheduler
+scrypt

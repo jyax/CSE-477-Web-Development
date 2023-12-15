@@ -5,12 +5,13 @@ from flask import current_app as app, jsonify
 from flask import render_template, redirect, request, session, url_for, copy_current_request_context
 from .utils.database.database import database
 from apscheduler.schedulers.background import BackgroundScheduler
-from werkzeug.datastructures import ImmutableMultiDict
 from pprint import pprint
 import json
 import random
 import functools
 import requests
+import http.client
+from urllib.parse import urlparse
 import enchant
 import atexit
 
@@ -175,20 +176,22 @@ def daily_word():
         # Fetch a new word from the API
         current_word = "?????????"
         while len(current_word) > 8:
-            response = requests.get("https://random-word-api.herokuapp.com/word")
-            if response.status_code == 200:
-                word_list = response.json()
+            url = urlparse("https://random-word-api.herokuapp.com/word")
+            conn = http.client.HTTPSConnection(url.netloc)
+            conn.request("GET", url.path)
+            response = conn.getresponse()
+            if response.status == 200:
+                word_list = json.loads(response.read().decode())
                 if word_list:
                     current_word = word_list[0]
                     if validateword(current_word) and len(current_word) <= 8:
                         break
                     else:
                         current_word = "?????????"
-                    if len(current_word) <= 8:
-                        break
             else:
                 print("Error fetching the word from the API")
                 return None
+            conn.close()
         db.setDailyWord(word=current_word)
         return current_word
 
