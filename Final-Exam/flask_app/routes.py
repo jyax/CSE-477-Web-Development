@@ -17,7 +17,6 @@ import atexit
 db = database()
 
 eDict = enchant.Dict("en-us")
-
 #############
 # Scheduler #
 #############
@@ -104,7 +103,6 @@ def processlogin():
     if auth['success']:
         encrypted_email = db.reversibleEncrypt('encrypt', email)
         session['email'] = encrypted_email
-        stored_date = session.get('last_login_date')
         return json.dumps({'success': 1})
 
     else:
@@ -287,13 +285,18 @@ def checkscore():
 @login_required
 def wordly():
     user_username = getUsername()
-    stored_date = session.get('last_login_date')
-    today_date = datetime.now().date().isoformat()
-    if stored_date != today_date:
+    first_login = session.get('first_login')
+    if first_login is None:
+        first_login = True
+    print(f"First Login?: {first_login}")
+    if first_login:
+        print("Setting show instruction to true")
         show_instructions = True
-        session['last_login_date'] = today_date
+        session['first_login'] = False
     else:
+        print("Setting show instruction to false")
         show_instructions = False
+    print(show_instructions)
     return render_template('wordly.html', user_username=user_username, show_instructions=show_instructions)
 
 
