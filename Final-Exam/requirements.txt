@@ -22,3 +22,5 @@ gevent
 packaging
 greenlet
 requests
+pyenchant
+apscheduler

@@ -2,15 +2,39 @@
 from flask import current_app as app, jsonify
 from flask import render_template, redirect, request, session, url_for, copy_current_request_context
 from .utils.database.database import database
+from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.datastructures import ImmutableMultiDict
 from pprint import pprint
 import json
 import random
 import functools
 import requests
+import enchant
+import atexit
 
 db = database()
 
+eDict = enchant.Dict("en-us")
+
+#############
+# Scheduler #
+#############
+
+
+def clear_scores_table():
+    db.query("DELETE FROM scores")
+
+
+def daily_tasks():
+    daily_word()
+    clear_scores_table()
+
+
+scheduler = BackgroundScheduler(daemon=True)
+scheduler.add_job(func=daily_tasks, trigger='cron', hour=0)  # Runs daily at midnight
+scheduler.start()
+
+atexit.register(lambda: scheduler.shutdown())
 
 #################
 # Login Related #
@@ -140,7 +164,7 @@ def daily_word():
         print("Fetching new daily word...")
         # Fetch a new word from the API
         current_word = "?????????"
-        while len(current_word) > 8:
+        while len(current_word) > 8 and not validateword(current_word):
             response = requests.get("https://random-word-api.herokuapp.com/word")
             if response.status_code == 200:
                 word_list = response.json()
@@ -157,61 +181,46 @@ def daily_word():
 
 
 def compare_guess(guess, current_daily_word):
-    guess_letters = {}
-    word_letters = {}
-    loc = 0
-
-    # Set up a nested dictionary for each letter of the guess that
-    # holds the count and location of each letter
-    for letter in guess:
-        if letter not in guess_letters:
-            guess_letters[letter] = {}
-            guess_letters[letter]['count'] = 0
-            guess_letters[letter]['location'] = []
-        guess_letters[letter]['count'] += 1
-        guess_letters[letter]['location'].append(loc)
-        loc += 1
-
-    # Similar as above
-    loc = 0
-    for letter in current_daily_word:
-        if letter not in word_letters:
-            word_letters[letter] = {}
-            word_letters[letter]['count'] = 0
-            word_letters[letter]['location'] = []
-        word_letters[letter]['count'] += 1
-        word_letters[letter]['location'].append(loc)
-        loc += 1
-
+    # This list will hold the correctness of each letter in the guess
     correctness = [0] * len(guess)
-    loc = 0
-    # Logic to check against the daily word
-    for letter in guess_letters:
-        correctness_type = 0
-        if letter not in word_letters:
-            loc += 1
-            continue
 
-        word_letters[letter]['count'] -= 1
-        correctness_type += 1
+    # First, let's mark all correct letters (right letter in the right place)
+    for i, (g, w) in enumerate(zip(guess, current_daily_word)):
+        if g == w:
+            correctness[i] = 2  # Mark as correct
+    print(f"Letters in correct spot: {correctness}")
 
-        # Perform set intersection to find if any correct guessed locations
-        guess_locations = set(guess_letters[letter]['location'])
-        word_locations = set(word_letters[letter]['location'])
-        common_locations = guess_locations.intersection(word_locations)
-        correctness_set = False
-        if common_locations:
-            correctness_type += 1
-            list_of_correct_locations = list(common_locations)
-            for location in list_of_correct_locations:
-                correctness[location] = correctness_type
-                correctness_set = True
-        correctness[loc] = correctness_type if not correctness_set else correctness[loc]
-        loc += 1
-        if word_letters[letter]['count'] == 0:
-            word_letters.pop(letter)
+    # Now, let's count the remaining letters in the daily word
+    word_letters = {}
+    for i, letter in enumerate(current_daily_word):
+        if correctness[i] != 2:  # Only count letters that haven't been marked correct
+            if letter not in word_letters:
+                word_letters[letter] = 0
+            word_letters[letter] += 1
+
+    # Next, check for present letters (right letter in the wrong place)
+    for i, letter in enumerate(guess):
+        if correctness[i] == 0 and letter in word_letters and word_letters[letter] > 0:
+            correctness[i] = 1  # Mark as present
+            word_letters[letter] -= 1  # Decrement the count of this letter
 
     return correctness
+
+
+def validateword(word):
+    return eDict.check(word)
+
+
+@app.route('/checkword', methods=['POST'])
+def checkword():
+    word_form = dict((key, request.form.getlist(key)[0]) for key in list(request.form.keys()))
+    print(f"Request: {word_form}")
+    print(f"Word to check: {word_form['word']}")
+    word = validateword(word_form['word'])
+    print(f"Valid word?: {word}")
+    json_version = json.dumps({'word': word})
+    print(f"JSON Return: {json_version}")
+    return json_version
 
 
 @app.route('/getlength', methods=['GET'])

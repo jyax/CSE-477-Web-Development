@@ -106,37 +106,66 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+function checkword(word, callback) {
+    console.log("Checking if word is real word")
+    jQuery.ajax({
+        url: "/checkword",
+        type: "POST",
+        data: { 'word': word },
+        success: function(response) {
+            response = JSON.parse(response);
+            console.log("Response:", response.word)
+            callback(response.word);
+        }
+    })
+    return false;
+}
+
 // This function would handle the submission of the guess
 function submitGuess() {
     // You could use an AJAX call here to send the currentGuess to the server
-	let guess = currentGuess.join('').toLowerCase();
-	jQuery.ajax( {
-		url:"/processguess",
-		type: 'POST',
-		data: { 'guess': guess },
-		success: function(response) {
-			response = JSON.parse(response);
-			if (response.correct) {
-				let result = new Array(wordLength).fill(2);
-				updateGridWithResult(result);
-				console.log('win',response.correct);
-                processEndGame(true);
-			} else {
-				if(currentGuessNumber+1 >= wordLength) {
-					processEndGame(false);
-				} else {
-					let result = response.result;
-					console.log('Returned correctness:', result);
-					updateGridWithResult(result);
-				}
-			}
-            currentGuessNumber++;
-			currentGuess = [];
-		},
-		error: function(err) {
-			console.log('Error submitting current guess', err);
-		}
-	})
+    let guess = currentGuess.join('').toLowerCase();
+    let check = checkword(guess);
+    console.log("Guess:", guess);
+    console.log("checkword return:", check);
+    checkword(guess, function(isValid) {
+        if (isValid) {
+            jQuery.ajax({
+                url: "/processguess",
+                type: 'POST',
+                data: {'guess': guess},
+                success: function (response) {
+                    response = JSON.parse(response);
+                    if (response.correct) {
+                        let result = new Array(wordLength).fill(2);
+                        updateGridWithResult(result);
+                        console.log('win', response.correct);
+                        processEndGame(true);
+                    } else {
+                        if (currentGuessNumber + 1 >= wordLength) {
+                            processEndGame(false);
+                        } else {
+                            let result = response.result;
+                            console.log('Returned correctness:', result);
+                            updateGridWithResult(result);
+                        }
+                    }
+                    currentGuessNumber++;
+                    currentGuess = [];
+                },
+                error: function (err) {
+                    console.log('Error submitting current guess', err);
+                }
+            })
+        } else {
+            let currentRow = document.querySelector(`.row${currentGuessNumber}`)
+            currentRow.classList.add('shake');
+            setTimeout(() => {
+                currentRow.classList.remove('shake');
+            }, 300);
+        }
+
+    });
 }
 
 function updateGridWithResult(result) {

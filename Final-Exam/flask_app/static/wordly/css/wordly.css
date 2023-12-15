@@ -134,3 +134,25 @@ main {
     margin: 5px 0;
     font-size: 1em;
 }
+
+.grid-row.shake {
+    animation: shake 100ms linear infinite;
+}
+
+@keyframes shake {
+      0% {
+          transform: translateX(0) ;
+      }
+      25% {
+          transform: translateX(-0.5vw) rotate(3deg);
+      }
+      50% {
+          transform: translateX(0)
+      }
+      75% {
+          transform: translateX(0.5vw) rotate(-3deg);
+      }
+      100% {
+          transform: translateX(0);
+      }
+}

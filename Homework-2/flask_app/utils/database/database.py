@@ -19,7 +19,7 @@ class database:
         self.port           = 3306
         self.password       = 'master'
 
-    def query(self, query = "SELECT CURDATE()", parameters = None):
+    def query(self, query = "SELECT CURDATE()", parameters=None):
 
         cnx = mysql.connector.connect(host     = self.host,
                                       user     = self.user,
@@ -84,21 +84,9 @@ class database:
 
         # If purge is True, drop existing tables
         if purge:
-            # Drop tables in the reverse order of creation because of foreign key constraints
-            self.query("DROP TABLE IF EXISTS skills;")
-            print("Dropped table: skills")
-
-            self.query("DROP TABLE IF EXISTS experiences;")
-            print("Dropped table: experiences")
-
-            self.query("DROP TABLE IF EXISTS positions;")
-            print("Dropped table: positions")
-
-            self.query("DROP TABLE IF EXISTS institutions;")
-            print("Dropped table: institutions")
-
-            self.query("DROP TABLE IF EXISTS feedback;")
-            print("Dropped table: feedback")
+            for table in os.listdir(data_path + 'create_tables/'):
+                table_name = os.path.splitext(table)[0]
+                self.query(f"DROP TABLE IF EXISTS {table}")
 
         table_creation_order = ['institutions.sql', 'positions.sql', 'experiences.sql', 'skills.sql']
         # Create tables in the predefined order
@@ -255,3 +243,4 @@ class database:
         #                                                     'start_date': None
         #                                                 }
         #                                             }}}}}
+https://msu.zoom.us/j/94293137353 (Passcode: 137185)

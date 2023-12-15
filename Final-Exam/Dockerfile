@@ -17,6 +17,7 @@ RUN apt-get install -y mysql-server
 RUN service mysql start && mysql -e "CREATE USER 'master'@'localhost' IDENTIFIED BY 'master';CREATE DATABASE db; GRANT ALL PRIVILEGES ON db.* TO 'master'@'localhost';"
 
 # Add the Flask application and install requirements
+RUN apt update && apt install -y enchant
 RUN apt -y install python3-pip
 RUN apt -y install vim
 RUN mkdir /app
