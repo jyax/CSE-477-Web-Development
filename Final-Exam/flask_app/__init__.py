@@ -7,6 +7,7 @@ import os
 from flask import Flask
 from flask_failsafe import failsafe
 from .utils.database.database import database
+from flask import session
 import secrets
 
 #--------------------------------------------------
@@ -20,7 +21,6 @@ def create_app(debug=False):
 	app.debug = debug
 
 	app.secret_key = 'AKWNF1231082fksejfOSEHFOISEHF24142124124124124iesfhsoijsopdjf'
-
 	db = database()
 	db.createTables(purge=True)
 

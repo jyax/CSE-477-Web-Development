@@ -22,6 +22,11 @@ eDict = enchant.Dict("en-us")
 #############
 
 
+def initial_clear():
+    # Your session clearing logic goes here
+    session.clear()
+
+
 def clear_scores_table():
     db.query("DELETE FROM scores")
 
@@ -29,6 +34,7 @@ def clear_scores_table():
 def daily_tasks():
     daily_word()
     clear_scores_table()
+    session.clear()
 
 
 scheduler = BackgroundScheduler(daemon=True)
@@ -40,6 +46,8 @@ atexit.register(lambda: scheduler.shutdown())
 #################
 # Login Related #
 #################
+
+
 def login_required(func):
     @functools.wraps(func)
     def secure_function(*args, **kwargs):

@@ -180,17 +180,28 @@ function updateGridWithResult(result) {
     let cells = currentRow.querySelectorAll('.cell');
 	result.forEach((status, index) => {
 		let cell = cells[index];
-		// Reset classes first if you're reusing cells
+		let letter = currentGuess[index];
+        let kbButton         = document.getElementById(letter); // Assuming each button has an ID equal to its letter
+        // Reset classes first if you're reusing cells
 		cell.classList.remove('absent', 'letter-present', 'letter-correct');
 		switch (status) {
 			case 0:
 				cell.classList.add('absent');
+                if (!kbButton.classList.contains('letter-present') &&
+                    !kbButton.classList.contains('letter-correct')) {
+
+                    kbButton.classList.add('absent');
+                }
 				break;
 			case 1:
 				cell.classList.add('letter-present');
+                if (!kbButton.classList.contains('letter-correct')){
+                    kbButton.classList.add('letter-present');
+                }
 				break;
 			case 2:
 				cell.classList.add('letter-correct');
+                kbButton.classList.add('letter-correct');
 				break;
 		}
 	});
@@ -198,7 +209,7 @@ function updateGridWithResult(result) {
 
 
 function processEndGame(win, previous) {
-    let score = win ? currentGuessNumber+1 : null;
+    let score = win ? currentGuessNumber+1 : 999;
     let note = win ? `Nice! You beat it in ${currentGuessNumber+1} guesses.` : "Good try! You didn't get it today.";
     const gameContainer = document.querySelector('.game');
     gameContainer.classList.add('fade-out');
@@ -256,7 +267,11 @@ function displayLeaderboard(leaderboardData, note) {
     leaderboardData.forEach((entry, index) => {
         const entryElement = document.createElement('li');
         entryElement.classList.add('leaderboard-entry');
-        entryElement.textContent = `${index + 1}. ${entry.username} - Guesses: ${entry.score}`;
+        let lb_score = entry.score;
+        if (lb_score === 999) {
+            lb_score = "FAILED"
+        }
+        entryElement.textContent = `${index + 1}. ${entry.username} - Guesses: ${lb_score}`;
         leaderboardList.appendChild(entryElement);
     })
     leaderboardElement.appendChild(leaderboardList);
