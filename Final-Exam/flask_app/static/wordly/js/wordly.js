@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     checkForExistingScore();
-	getWordLength(createGameGrid);
 })
 
 let wordLength = null
@@ -191,23 +190,31 @@ function updateGridWithResult(result) {
 }
 
 
-function processEndGame(win) {
+function processEndGame(win, previous) {
     let score = win ? currentGuessNumber+1 : null;
-    let note = win ? `Nice! You beat it in ${currentGuessNumber} guesses.` : "Good try! You didn't get it today.";
-
+    let note = win ? `Nice! You beat it in ${currentGuessNumber+1} guesses.` : "Good try! You didn't get it today.";
+    const gameContainer = document.querySelector('.game');
+    gameContainer.classList.add('fade-out');
     // POST request to submit the score
-    jQuery.ajax({
-        url: "/processscore",
-        type: 'POST',
-        data: { score: score },
-        success: function() {
-            // Once the score is submitted, get the leaderboard
+    setTimeout(() => {
+        if(!previous) {
+            jQuery.ajax({
+                url: "/processscore",
+                type: 'POST',
+                data: {score: score},
+                success: function () {
+                    // Once the score is submitted, get the leaderboard
+                    getLeaderboard(note);
+                },
+                error: function (err) {
+                    console.log('Error submitting score:', err);
+                }
+            });
+        } else {
             getLeaderboard(note);
-        },
-        error: function(err) {
-            console.log('Error submitting score:', err);
         }
-    });
+    }, 500);
+
 }
 
 function getLeaderboard(note) {
@@ -246,6 +253,7 @@ function displayLeaderboard(leaderboardData, note) {
         leaderboardList.appendChild(entryElement);
     })
     leaderboardElement.appendChild(leaderboardList);
+    gameContainer.classList.add('fade-in');
 
     gameContainer.appendChild(leaderboardElement);
 }
@@ -255,10 +263,14 @@ function checkForExistingScore() {
     jQuery.ajax({
         url: "/checkscore",
         type: "GET",
-        success: function(scoreData) {
-            if (scoreData.score) {
-                currentGuessNumber = scoreData.score;
-                processEndGame(true);
+        success: function(response) {
+            let scoreData = (typeof response === 'string') ? JSON.parse(response) : response;
+            console.log('Response: ', scoreData.score);
+            if (scoreData.score != null) {
+                currentGuessNumber = scoreData.score-1;
+                processEndGame(true, true);
+            } else {
+                getWordLength(createGameGrid);
             }
         },
         error: function(err) {

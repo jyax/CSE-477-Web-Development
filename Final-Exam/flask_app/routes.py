@@ -164,13 +164,16 @@ def daily_word():
         print("Fetching new daily word...")
         # Fetch a new word from the API
         current_word = "?????????"
-        while len(current_word) > 8 and not validateword(current_word):
+        while len(current_word) > 8:
             response = requests.get("https://random-word-api.herokuapp.com/word")
             if response.status_code == 200:
                 word_list = response.json()
                 if word_list:
                     current_word = word_list[0]
-                    # Store the new word in the database with today's date
+                    if validateword(current_word) and len(current_word) <= 8:
+                        break
+                    else:
+                        current_word = "?????????"
                     if len(current_word) <= 8:
                         break
             else:
@@ -267,12 +270,15 @@ def processleaderboard():
 @app.route('/checkscore', methods=['GET'])
 def checkscore():
     username = getUsername()
+    print(f"Checking if {username} already has a score")
     score_exists = db.checkScore(username)
+    print(f"Properly returned: {score_exists}")
     if score_exists:
         score = score_exists['score']
     else:
         score = None
     return json.dumps({'score': score})
+
 
 @app.route('/wordly')
 @login_required

@@ -212,7 +212,9 @@ class database:
         return None
 
     def checkScore(self, username):
+        print(f"Does ${username} already have a score?")
         score_exists = self.query("SELECT * FROM scores WHERE username = %s", (username,))
+        print(f"Answer: {score_exists}")
         if score_exists:
             return score_exists[0]
         return None
